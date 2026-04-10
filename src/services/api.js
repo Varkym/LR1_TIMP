@@ -6,8 +6,9 @@ const API_URL = (import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42
 const api = axios.create({ baseURL: API_URL });
 
 // Хелперы для работы с единым объектом данных
-const getFullData = () => api.get('/api/1').then(res => res.data);
-const updateFullData = (data) => api.put('/api/1', data);
+// Получаем первый элемент из коллекции 'api'
+const getFullData = () => api.get('/api').then(res => res.data[0]);
+const updateFullData = (data) => api.put(`/api/${data.id}`, data);
 
 // Services
 export const getServices = () => getFullData().then(data => ({ data: data.services }));
