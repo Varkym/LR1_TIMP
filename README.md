@@ -1,4 +1,4 @@
-# 🛡️ Cybersecurity Dashboard & Monitoring System
+# 🛡️ Система мониторинга кибербезопасности
 
 [![React](https://img.shields.io/badge/React-19-blue.svg?logo=react)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF.svg?logo=vite)](https://vitejs.dev/)
