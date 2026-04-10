@@ -1,24 +1,66 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42bb.mockapi.io/api';
+// Используем базовый URL без /api в конце, чтобы обращаться к /api/1
+const API_URL = (import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42bb.mockapi.io/api').replace(/\/api$/, '');
 
 const api = axios.create({ baseURL: API_URL });
 
-export const getServices = () => api.get('/services');
-export const getService = (id) => api.get(`/services/${id}`);
-export const createService = (data) => api.post('/services', data);
-export const updateService = (id, data) => api.put(`/services/${id}`, data);
-export const deleteService = (id) => api.delete(`/services/${id}`);
+// Хелперы для работы с единым объектом данных
+const getFullData = () => api.get('/api/1').then(res => res.data);
+const updateFullData = (data) => api.put('/api/1', data);
+
+// Services
+export const getServices = () => getFullData().then(data => ({ data: data.services }));
+export const getService = (id) => getFullData().then(data => ({ data: data.services.find(s => String(s.id) === String(id)) }));
+export const createService = async (newData) => {
+    const data = await getFullData();
+    data.services.push(newData);
+    return updateFullData(data);
+};
+export const updateService = async (id, updatedData) => {
+    const data = await getFullData();
+    data.services = data.services.map(s => String(s.id) === String(id) ? { ...s, ...updatedData } : s);
+    return updateFullData(data);
+};
+export const deleteService = async (id) => {
+    const data = await getFullData();
+    data.services = data.services.filter(s => String(s.id) !== String(id));
+    return updateFullData(data);
+};
 
 // Users
-export const getUsers = () => api.get('/users');
-export const findUserByEmail = (email) => api.get(`/users?email=${email}`);
+export const getUsers = () => getFullData().then(data => ({ data: data.users }));
+export const findUserByEmail = (email) => getFullData().then(data => ({
+    data: data.users.filter(u => u.email === email)
+}));
+export const createUser = async (userData) => {
+    const data = await getFullData();
+    data.users.push(userData);
+    return updateFullData(data);
+};
+export const updateUser = async (id, userData) => {
+    const data = await getFullData();
+    data.users = data.users.map(u => String(u.id) === String(id) ? { ...u, ...userData } : u);
+    return updateFullData(data);
+};
 
 // Events
-export const getEvents = () => api.get('/events');
-export const getEvent = (id) => api.get(`/events/${id}`);
-export const createEvent = (data) => api.post('/events', data);
-export const updateEvent = (id, data) => api.patch(`/events/${id}`, data);
-export const deleteEvent = (id) => api.delete(`/events/${id}`);
+export const getEvents = () => getFullData().then(data => ({ data: data.events }));
+export const getEvent = (id) => getFullData().then(data => ({ data: data.events.find(e => String(e.id) === String(id)) }));
+export const createEvent = async (eventData) => {
+    const data = await getFullData();
+    data.events.push(eventData);
+    return updateFullData(data);
+};
+export const updateEvent = async (id, eventData) => {
+    const data = await getFullData();
+    data.events = data.events.map(e => String(e.id) === String(id) ? { ...e, ...eventData } : e);
+    return updateFullData(data);
+};
+export const deleteEvent = async (id) => {
+    const data = await getFullData();
+    data.events = data.events.filter(e => String(e.id) !== String(id));
+    return updateFullData(data);
+};
 
 export default api;

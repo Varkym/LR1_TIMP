@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { getUsers } from '../services/api';
+import { getUsers, createUser } from '../services/api';
 import axios from 'axios';
 import Toast from './Toast';
 import styles from './Register.module.css';
@@ -61,7 +61,7 @@ export default function Register() {
 
         const maxId = res.data.reduce((max, u) => Math.max(max, parseInt(u.id) || 0), 0);
 
-        return axios.post(`${API_URL}/users`, {
+        return createUser({
           id: String(maxId + 1),
           name: form.name.trim(),
           email: form.email.trim(),
