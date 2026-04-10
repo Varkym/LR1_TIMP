@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { getEvents, getServices, getUsers, createEvent, updateEvent, deleteEvent } from '../services/api';
-import api from '../services/api'; // Импортируем сам экземпляр axios
+import { getEvents, getServices, getUsers, createEvent, updateEvent, deleteEvent, updateUser } from '../services/api';
 import Toast from './Toast';
 import styles from './Events.module.css';
 
@@ -78,7 +77,7 @@ export default function Events() {
       showToast('Нельзя заблокировать себя!', 'error');
       return;
     }
-    api.patch(`/users/${targetUserId}`, { isBlocked: 1 })
+    updateUser(targetUserId, { isBlocked: 1 })
       .then(() => showToast('Пользователь заблокирован', 'success'))
       .catch(() => showToast('Ошибка при блокировке', 'error'));
   };
@@ -146,48 +145,48 @@ export default function Events() {
             {events.map((ev) => {
               const statusClass = ev.status === 'Успех' ? styles.statusSuccess : ev.status === 'Предупреждение' ? styles.statusWarning : ev.status === 'Отказ' ? styles.statusError : '';
               return (
-              <div key={ev.id} className={`${styles.eventCard} ${statusClass}`}>
-                <div className={styles.eventHeader}>
-                  <span className={styles.eventIcon}>{EVENT_ICONS[ev.eventType] || '📌'}</span>
-                  <span className={styles.eventId}>ID: {ev.id}</span>
-                  <span className={styles.eventDate}>{ev.date}</span>
-                  <span className={styles.eventUser}>{getUserName(ev.userId)}</span>
-                  <span className={styles.eventStatus} style={{ color: STATUS_COLORS[ev.status] || '#888' }}>
-                    {ev.status}
-                  </span>
-                </div>
-                <div className={styles.eventBody}>
-                  <div className={styles.eventRow}>
-                    <span className={styles.label}>Сервис:</span>
-                    <span className={styles.value}>{getServiceName(ev.serviceId)}</span>
+                <div key={ev.id} className={`${styles.eventCard} ${statusClass}`}>
+                  <div className={styles.eventHeader}>
+                    <span className={styles.eventIcon}>{EVENT_ICONS[ev.eventType] || '📌'}</span>
+                    <span className={styles.eventId}>ID: {ev.id}</span>
+                    <span className={styles.eventDate}>{ev.date}</span>
+                    <span className={styles.eventUser}>{getUserName(ev.userId)}</span>
+                    <span className={styles.eventStatus} style={{ color: STATUS_COLORS[ev.status] || '#888' }}>
+                      {ev.status}
+                    </span>
                   </div>
-                  <div className={styles.eventRow}>
-                    <span className={styles.label}>Тип:</span>
-                    <span className={styles.value}>{EVENT_LABELS[ev.eventType] || ev.eventType}</span>
+                  <div className={styles.eventBody}>
+                    <div className={styles.eventRow}>
+                      <span className={styles.label}>Сервис:</span>
+                      <span className={styles.value}>{getServiceName(ev.serviceId)}</span>
+                    </div>
+                    <div className={styles.eventRow}>
+                      <span className={styles.label}>Тип:</span>
+                      <span className={styles.value}>{EVENT_LABELS[ev.eventType] || ev.eventType}</span>
+                    </div>
+                    <div className={styles.eventRow}>
+                      <span className={styles.label}>Описание:</span>
+                      <span className={styles.value}>{ev.description}</span>
+                    </div>
                   </div>
-                  <div className={styles.eventRow}>
-                    <span className={styles.label}>Описание:</span>
-                    <span className={styles.value}>{ev.description}</span>
+                  <div className={styles.eventActions}>
+                    <button
+                      className={styles.viewBtn}
+                      onClick={() => { setSelectedEvent(ev); setActiveTab('view'); }}
+                    >
+                      👁 Просмотр
+                    </button>
+                    <button
+                      className={styles.editBtn}
+                      onClick={() => { setSelectedEvent(ev); setActiveTab('edit'); }}
+                    >
+                      ✏️ Изменить
+                    </button>
+                    <button className={styles.deleteBtn} onClick={() => handleDelete(ev.id)}>
+                      🗑 Удалить
+                    </button>
                   </div>
                 </div>
-                <div className={styles.eventActions}>
-                  <button
-                    className={styles.viewBtn}
-                    onClick={() => { setSelectedEvent(ev); setActiveTab('view'); }}
-                  >
-                    👁 Просмотр
-                  </button>
-                  <button
-                    className={styles.editBtn}
-                    onClick={() => { setSelectedEvent(ev); setActiveTab('edit'); }}
-                  >
-                    ✏️ Изменить
-                  </button>
-                  <button className={styles.deleteBtn} onClick={() => handleDelete(ev.id)}>
-                    🗑 Удалить
-                  </button>
-                </div>
-              </div>
               );
             })}
           </div>
@@ -281,7 +280,7 @@ function AddEventForm({ services, user, onSuccess }) {
       ...form,
       userId: user.id,
       serviceId: Number(form.serviceId),
-    }).then(() => onSuccess()).catch(() => {});
+    }).then(() => onSuccess()).catch(() => { });
   };
 
   return (
@@ -340,7 +339,7 @@ function EditEventForm({ event, services, onSuccess, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateEvent(event.id, form).then(() => onSuccess({ ...event, ...form })).catch(() => {});
+    updateEvent(event.id, form).then(() => onSuccess({ ...event, ...form })).catch(() => { });
   };
 
   return (
