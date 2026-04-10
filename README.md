@@ -4,6 +4,8 @@
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF.svg?logo=vite)](https://vitejs.dev/)
 [![Netlify](https://img.shields.io/badge/Netlify-Deployed-00AD9F.svg?logo=netlify)](https://lrtimp.netlify.app/)
 
+**🌐 Ссылка на живой проект:** [https://lrtimp.netlify.app/](https://lrtimp.netlify.app/)
+
 Современное SPA-приложение для мониторинга безопасности электронных сервисов. Обладает уникальной визуализацией в виде **интерактивного щита**, системой управления событиями и ролевой моделью доступа.
 
 ---
