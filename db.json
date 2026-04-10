@@ -1,0 +1,106 @@
+{
+  "services": [
+    {
+      "id": "1",
+      "name": "Интернет-банк",
+      "url": "https://bank.ru",
+      "status": "secure",
+      "securityLevel": 92
+    },
+    {
+      "id": "2",
+      "name": "Облачное хранилище",
+      "url": "https://cloud.ru",
+      "status": "warning",
+      "securityLevel": 65
+    },
+    {
+      "id": "3",
+      "name": "Почтовый сервер",
+      "url": "https://mail.ru",
+      "status": "compromised",
+      "securityLevel": 34
+    },
+    {
+      "name": "ку",
+      "url": "http://localhost:5173/abc",
+      "status": "secure",
+      "securityLevel": 90,
+      "id": "BKMvvRxpp_I"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "user@example.com",
+      "password": "password123",
+      "name": "Сапегина Варвара",
+      "role": "Пользователь",
+      "isBlocked": 0
+    },
+    {
+      "id": "2",
+      "email": "admin@security.com",
+      "password": "admin123",
+      "name": "Медведев Михаил",
+      "role": "Администратор",
+      "isBlocked": 0
+    },
+    {
+      "id": "3aAXQfqCq9g",
+      "name": "Ксения",
+      "email": "ksi@mail.ru",
+      "password": "1234",
+      "role": "Пользователь",
+      "isBlocked": 1
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "date": "15.03.2026",
+      "userId": 1,
+      "serviceId": 1,
+      "eventType": "login_attempt",
+      "description": "Успешный вход с IP 192.168.1.1",
+      "status": "Успех"
+    },
+    {
+      "id": "2",
+      "date": "14.03.2026",
+      "userId": 1,
+      "serviceId": 2,
+      "eventType": "failed_login",
+      "description": "Неверный пароль с IP 185.130.5.253",
+      "status": "Отказ"
+    },
+    {
+      "id": "3",
+      "date": "14.03.2026",
+      "userId": 1,
+      "serviceId": 3,
+      "eventType": "suspicious_activity",
+      "description": "Подозрительный вход с нового устройства",
+      "status": "Предупреждение"
+    },
+    {
+      "id": "4",
+      "date": "13.03.2026",
+      "userId": 2,
+      "serviceId": 4,
+      "eventType": "login_attempt",
+      "description": "Вход через корпоративную сеть",
+      "status": "Успех"
+    },
+    {
+      "id": "5",
+      "date": "12.03.2026",
+      "userId": 1,
+      "serviceId": 5,
+      "eventType": "suspicious_activity",
+      "description": "Множественные запросы с одного IP",
+      "status": "Предупреждение"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

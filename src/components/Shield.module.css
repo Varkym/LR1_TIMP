@@ -1,0 +1,213 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 20px 100px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+  margin: 10px 0 16px;
+  text-align: center;
+}
+
+.topBar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userName {
+  color: #e6edf3;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.userRole {
+  color: #8b949e;
+  font-size: 13px;
+  background: #161b22;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #30363d;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eventsLink {
+  color: #58a6ff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: text-shadow 0.2s;
+}
+
+.eventsLink:hover {
+  text-shadow: 0 0 8px rgba(88, 166, 255, 0.5);
+}
+
+.logoutBtn {
+  padding: 6px 16px;
+  background: transparent;
+  color: #ff3333;
+  border: 1px solid #ff3333;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+  background: #ff3333;
+  color: #fff;
+}
+
+.shieldWrapper {
+  position: relative;
+  width: 1000px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+}
+
+.shieldSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.shieldPulse {
+  animation: shieldPulseAnim 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes shieldPulseAnim {
+  0% { filter: drop-shadow(0 0 0px rgba(0, 255, 136, 0)); }
+  25% { filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.8)); }
+  50% { filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.4)); }
+  75% { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6)); }
+  100% { filter: drop-shadow(0 0 0px rgba(0, 255, 136, 0)); }
+}
+
+.guardImage {
+  animation: guardBob 4s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes guardBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.sectorGroup {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease, filter 0.25s ease;
+  transform-origin: 250px 250px;
+}
+
+.sectorHover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 12px currentColor);
+}
+
+.sectorPath {
+  transition: opacity 0.25s ease;
+}
+
+.sectorLabel {
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.badgeWarning {
+  animation: badgePulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 51, 51, 0.6));
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+.addBtn {
+  margin: 12px auto 0;
+  padding: 14px 32px;
+  background: transparent;
+  color: #00ff88;
+  border: 2px solid #00ff88;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+  display: block;
+  text-align: center;
+}
+
+.addBtn:hover {
+  background: #00ff88;
+  color: #0d1117;
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.5);
+}
+
+.loading,
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  min-height: 60vh;
+  font-size: 20px;
+  color: #00ff88;
+}
+
+.loadingShield {
+  font-size: 48px;
+  animation: shieldBounce 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(0, 255, 136, 0.5));
+}
+
+.loadingText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #00ff88;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes shieldBounce {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+  50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; text-shadow: 0 0 12px rgba(0, 255, 136, 0.6); }
+}
+
+.error {
+  color: #ff3333;
+}

@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.backLink {
+  align-self: flex-start;
+  color: #00ff88;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  transition: text-shadow 0.2s;
+}
+
+.backLink:hover {
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.08);
+  text-align: center;
+}
+
+.iconWrap {
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.4));
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: #8b949e;
+  font-size: 14px;
+  margin: 0 0 28px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.field label {
+  color: #8b949e;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field input,
+.field select {
+  padding: 11px 14px;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: #00ff88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+.errorInput {
+  border-color: #ff3333 !important;
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.3) !important;
+}
+
+.errorText {
+  color: #ff3333;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.submitBtn {
+  padding: 14px;
+  background: #00ff88;
+  color: #0d1117;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+  margin-top: 4px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.6);
+  transform: translateY(-2px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loginLink {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #30363d;
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.loginLink a {
+  color: #00ff88;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.loginLink a:hover {
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
