@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42bb.mockapi.io/api';
 
 const api = axios.create({ baseURL: API_URL });
 

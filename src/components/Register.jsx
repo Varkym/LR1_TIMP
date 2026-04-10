@@ -5,7 +5,7 @@ import axios from 'axios';
 import Toast from './Toast';
 import styles from './Register.module.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42bb.mockapi.io/api';
 
 export default function Register() {
   const navigate = useNavigate();
