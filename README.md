@@ -2,9 +2,9 @@
 
 [![React](https://img.shields.io/badge/React-19-blue.svg?logo=react)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF.svg?logo=vite)](https://vitejs.dev/)
-[![Netlify](https://img.shields.io/badge/Netlify-Deployed-00AD9F.svg?logo=netlify)](https://lrtimp.netlify.app/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000.svg?logo=vercel)](https://lr-1-timp.vercel.app/)
 
-**🌐 Ссылка на живой проект:** [https://lrtimp.netlify.app/](https://lrtimp.netlify.app/)
+**🌐 Ссылка на живой проект:** [https://lr-1-timp.vercel.app/](https://lr-1-timp.vercel.app/)
 
 Современное SPA-приложение для мониторинга безопасности электронных сервисов. Обладает уникальной визуализацией в виде **интерактивного щита**, системой управления событиями и ролевой моделью доступа.
 
@@ -23,7 +23,7 @@
 *   **Frontend:** React 19, Vite, React Router DOM v7.
 *   **Стилизация:** Vanilla CSS + CSS Modules.
 *   **API:** Axios (интеграция с MockAPI и json-server).
-*   **Развертывание:** Netlify (CI/CD через GitHub).
+*   **Развертывание:** Vercel (CI/CD через GitHub).
 
 ---
 
@@ -92,4 +92,4 @@ npm run build
 ---
 
 > [!TIP]
-> Для корректной работы маршрутизации на Netlify используется файл `_redirects` в папке `public`.
+> Для корректной работы маршрутизации на Vercel используется конфигурация в файле `vercel.json`.
