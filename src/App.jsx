@@ -18,13 +18,23 @@ function ProtectedRoute({ children, isAuthenticated, authReady }) {
 export default function App() {
   const [user, setUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem('user');
     if (stored) {
       try {
         setUser(JSON.parse(stored));
-      } catch {}
+      } catch { }
     }
     setAuthReady(true);
   }, []);
@@ -50,7 +60,7 @@ export default function App() {
             path="/"
             element={
               <ProtectedRoute isAuthenticated={!!user} authReady={authReady}>
-                <Shield user={user} onLogout={handleLogout} />
+                <Shield user={user} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} />
               </ProtectedRoute>
             }
           />

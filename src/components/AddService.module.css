@@ -8,7 +8,7 @@
 
 .backLink {
   align-self: flex-start;
-  color: #00ff88;
+  color: var(--accent-neon);
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
@@ -29,16 +29,17 @@
 }
 
 .form {
-  background: #161b22;
-  border: 1px solid #30363d;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 32px 36px;
   width: 100%;
   max-width: 460px;
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.06);
+  box-shadow: 0 0 30px var(--shadow-color);
   display: flex;
   flex-direction: column;
   gap: 22px;
+  backdrop-filter: blur(10px);
 }
 
 .field {
@@ -56,10 +57,10 @@
 .field input,
 .field select {
   padding: 12px 14px;
-  background: #0d1117;
-  border: 1px solid #30363d;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 15px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -84,15 +85,15 @@
 
 .submitBtn {
   padding: 14px;
-  background: #00ff88;
-  color: #0d1117;
+  background: var(--accent-neon);
+  color: var(--bg-primary);
   border: none;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+  box-shadow: 0 0 12px var(--shadow-color);
   margin-top: 8px;
 }
 

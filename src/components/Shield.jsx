@@ -153,12 +153,12 @@ function ShieldSVG({ services, hoveredIndex, setHoveredIndex, navigate, justLoad
           <feDropShadow dx="0" dy="4" stdDeviation="12" floodColor="#00ff88" floodOpacity="0.15" />
         </filter>
         <radialGradient id="shieldBg" cx="50%" cy="40%" r="60%">
-          <stop offset="0%" stopColor="#1a2332" />
-          <stop offset="100%" stopColor="#0d1117" />
+          <stop offset="0%" stopColor="var(--bg-secondary)" />
+          <stop offset="100%" stopColor="var(--bg-primary)" />
         </radialGradient>
         <radialGradient id="centerGrad" cx="50%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="#1a2e23" />
-          <stop offset="100%" stopColor="#0d1117" />
+          <stop offset="0%" stopColor="var(--bg-secondary)" />
+          <stop offset="100%" stopColor="var(--bg-primary)" />
         </radialGradient>
       </defs>
 
@@ -186,130 +186,130 @@ function ShieldSVG({ services, hoveredIndex, setHoveredIndex, navigate, justLoad
 
       {/* ═══ ЩИТ ПО ЦЕНТРУ ═══ */}
       <g transform="translate(250, 15)">
-      <path
-        d={SHIELD_PATH}
-        fill="url(#shieldBg)"
-        filter="url(#shadow)"
-      />
-      <path
-        d={SHIELD_PATH}
-        fill="none"
-        stroke="#00ff88"
-        strokeWidth="2.5"
-        filter="url(#shieldGlow)"
-        opacity="0.7"
-      />
-      <path
-        d={SHIELD_PATH}
-        fill="none"
-        stroke="#00ff88"
-        strokeWidth="0.5"
-        opacity="0.15"
-        transform="translate(250,250) scale(0.96) translate(-250,-250)"
-      />
+        <path
+          d={SHIELD_PATH}
+          fill="url(#shieldBg)"
+          filter="url(#shadow)"
+        />
+        <path
+          d={SHIELD_PATH}
+          fill="none"
+          stroke="var(--accent-neon)"
+          strokeWidth="2.5"
+          filter="url(#shieldGlow)"
+          opacity="0.7"
+        />
+        <path
+          d={SHIELD_PATH}
+          fill="none"
+          stroke="#00ff88"
+          strokeWidth="0.5"
+          opacity="0.15"
+          transform="translate(250,250) scale(0.96) translate(-250,-250)"
+        />
 
-      {/* Сектора-клинья щита */}
-      {services.map((service, i) => {
-        const color = STATUS_COLORS[service.status] || '#888';
-        const isHovered = hoveredIndex === i;
-        const [lx, ly] = getWedgeLabelCenter(i, n, cx, cy, outlinePts);
-        const textColor = getContrastTextColor(color);
+        {/* Сектора-клинья щита */}
+        {services.map((service, i) => {
+          const color = STATUS_COLORS[service.status] || '#888';
+          const isHovered = hoveredIndex === i;
+          const [lx, ly] = getWedgeLabelCenter(i, n, cx, cy, outlinePts);
+          const textColor = getContrastTextColor(color);
 
-        return (
-          <g
-            key={service.id}
-            className={`${styles.sectorGroup} ${isHovered ? styles.sectorHover : ''}`}
-            onClick={() => navigate(`/detail/${service.id}`)}
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            style={{ cursor: 'pointer' }}
-          >
-            <path
-              d={wedgePaths[i]}
-              fill={color}
-              opacity={isHovered ? 0.7 : 0.4}
-              className={styles.sectorPath}
-            />
-            <path
-              d={wedgePaths[i]}
-              fill="none"
-              stroke={color}
-              strokeWidth="1"
-              opacity={isHovered ? 0.8 : 0.3}
-            />
-            <text
-              x={lx}
-              y={ly}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              className={styles.sectorLabel}
-              fill={textColor}
-              fontSize="18"
-              fontWeight="800"
-              opacity={isHovered ? 1 : 0.85}
+          return (
+            <g
+              key={service.id}
+              className={`${styles.sectorGroup} ${isHovered ? styles.sectorHover : ''}`}
+              onClick={() => navigate(`/detail/${service.id}`)}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{ cursor: 'pointer' }}
             >
-              {!isValidUrl(service.url) && (
-                <tspan className={styles.badgeWarning} fill="#ff3333" fontSize="14">⚠️ </tspan>
-              )}
-              {service.securityLevel}%
-            </text>
-          </g>
-        );
-      })}
-
-      {/* Центральный элемент */}
-      <circle cx={cx} cy={cy} r="50" fill="url(#centerGrad)" stroke="#00ff88" strokeWidth="2.5" filter="url(#shieldGlow)" opacity="0.95" />
-      <circle cx={cx} cy={cy} r="50" fill="none" stroke="#00ff88" strokeWidth="0.8" opacity="0.3" />
-      <text x={cx} y={cy - 12} textAnchor="middle" fill="#00ff88" fontSize="8" fontWeight="700" letterSpacing="0.5" opacity="0.9">
-        БЕЗОПАСНОСТЬ
-      </text>
-      <text x={cx} y={cy + 16} textAnchor="middle" fill="#ffffff" fontSize="28" fontWeight="800" filter="url(#shieldGlow)">
-        {avgLevel}%
-      </text>
-
-      {/* Тултип при наведении */}
-      {hoveredIndex !== null && (() => {
-        const svc = services[hoveredIndex];
-        const [lx, ly] = getWedgeLabelCenter(hoveredIndex, n, cx, cy, outlinePts);
-        const tooltipX = lx;
-        const tooltipY = ly - 48;
-        const statusColor = STATUS_COLORS[svc.status];
-
-        return (
-          <g>
-            <rect
-              x={tooltipX - 80}
-              y={tooltipY - 18}
-              width="160"
-              height={!isValidUrl(svc.url) ? '60' : '42'}
-              rx="10"
-              fill="#161b22"
-              stroke={statusColor}
-              strokeWidth="1.5"
-              filter="url(#shieldGlow)"
-              opacity="0.95"
-            />
-            <text x={tooltipX} y={tooltipY - 2} textAnchor="middle" fill="#fff" fontSize="13" fontWeight="700">
-              {svc.name}
-            </text>
-            <text x={tooltipX} y={tooltipY + 15} textAnchor="middle" fill={statusColor} fontSize="12" fontWeight="600">
-              {svc.securityLevel}% · {svc.status === 'secure' ? '🟢' : svc.status === 'warning' ? '🟡' : '🔴'} {svc.status === 'secure' ? 'Защищён' : svc.status === 'warning' ? 'Предупреждение' : 'Взломан'}
-            </text>
-            {!isValidUrl(svc.url) && (
-              <text x={tooltipX} y={tooltipY + 30} textAnchor="middle" fill="#ff3333" fontSize="10" fontWeight="700">
-                ⚠️ Некорректный URL: {svc.url}
+              <path
+                d={wedgePaths[i]}
+                fill={color}
+                opacity={isHovered ? 0.7 : 0.4}
+                className={styles.sectorPath}
+              />
+              <path
+                d={wedgePaths[i]}
+                fill="none"
+                stroke={color}
+                strokeWidth="1"
+                opacity={isHovered ? 0.8 : 0.3}
+              />
+              <text
+                x={lx}
+                y={ly}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className={styles.sectorLabel}
+                fill={textColor}
+                fontSize="18"
+                fontWeight="800"
+                opacity={isHovered ? 1 : 0.85}
+              >
+                {!isValidUrl(service.url) && (
+                  <tspan className={styles.badgeWarning} fill="#ff3333" fontSize="14">⚠️ </tspan>
+                )}
+                {service.securityLevel}%
               </text>
-            )}
-          </g>
-        );
-      })()}
+            </g>
+          );
+        })}
+
+        {/* Центральный элемент */}
+        <circle cx={cx} cy={cy} r="50" fill="url(#centerGrad)" stroke="var(--accent-neon)" strokeWidth="2.5" filter="url(#shieldGlow)" opacity="0.95" />
+        <circle cx={cx} cy={cy} r="50" fill="none" stroke="var(--accent-neon)" strokeWidth="0.8" opacity="0.3" />
+        <text x={cx} y={cy - 12} textAnchor="middle" fill="var(--accent-neon)" fontSize="8" fontWeight="700" letterSpacing="0.5" opacity="0.9">
+          БЕЗОПАСНОСТЬ
+        </text>
+        <text x={cx} y={cy + 16} textAnchor="middle" fill="var(--text-primary)" fontSize="28" fontWeight="800" filter="url(#shieldGlow)">
+          {avgLevel}%
+        </text>
+
+        {/* Тултип при наведении */}
+        {hoveredIndex !== null && (() => {
+          const svc = services[hoveredIndex];
+          const [lx, ly] = getWedgeLabelCenter(hoveredIndex, n, cx, cy, outlinePts);
+          const tooltipX = lx;
+          const tooltipY = ly - 48;
+          const statusColor = STATUS_COLORS[svc.status];
+
+          return (
+            <g>
+              <rect
+                x={tooltipX - 80}
+                y={tooltipY - 18}
+                width="160"
+                height={!isValidUrl(svc.url) ? '60' : '42'}
+                rx="10"
+                fill="var(--bg-secondary)"
+                stroke={statusColor}
+                strokeWidth="1.5"
+                filter="url(#shieldGlow)"
+                opacity="0.95"
+              />
+              <text x={tooltipX} y={tooltipY - 2} textAnchor="middle" fill="var(--text-primary)" fontSize="13" fontWeight="700">
+                {svc.name}
+              </text>
+              <text x={tooltipX} y={tooltipY + 15} textAnchor="middle" fill={statusColor} fontSize="12" fontWeight="600">
+                {svc.securityLevel}% · {svc.status === 'secure' ? '🟢' : svc.status === 'warning' ? '🟡' : '🔴'} {svc.status === 'secure' ? 'Защищён' : svc.status === 'warning' ? 'Предупреждение' : 'Взломан'}
+              </text>
+              {!isValidUrl(svc.url) && (
+                <text x={tooltipX} y={tooltipY + 30} textAnchor="middle" fill="#ff3333" fontSize="10" fontWeight="700">
+                  ⚠️ Некорректный URL: {svc.url}
+                </text>
+              )}
+            </g>
+          );
+        })()}
 
       </g>
     </svg>
   );
 }
 
-export default function Shield({ user, onLogout }) {
+export default function Shield({ user, onLogout, theme, toggleTheme }) {
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -346,6 +346,9 @@ export default function Shield({ user, onLogout }) {
           </div>
         )}
         <div className={styles.topActions}>
+          <button className={styles.themeToggle} onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <Link to="/events" className={styles.eventsLink}>📋 События</Link>
           <button className={styles.logoutBtn} onClick={onLogout}>Выйти</button>
         </div>

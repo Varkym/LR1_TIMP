@@ -1,6 +1,7 @@
 .app {
   min-height: 100vh;
-  background: #0d1117;
-  color: #ffffff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }

@@ -8,14 +8,15 @@
 }
 
 .card {
-  background: #161b22;
-  border: 1px solid #30363d;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 40px 36px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 0 40px rgba(0, 255, 136, 0.08);
+  box-shadow: 0 0 40px var(--shadow-color);
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .iconWrap {
@@ -26,13 +27,13 @@
 .title {
   font-size: 26px;
   font-weight: 800;
-  color: #00ff88;
-  text-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+  color: var(--accent-neon);
+  text-shadow: 0 0 12px var(--shadow-color);
   margin: 0 0 4px;
 }
 
 .subtitle {
-  color: #8b949e;
+  color: var(--text-secondary);
   font-size: 14px;
   margin: 0 0 28px;
 }
@@ -51,25 +52,25 @@
 }
 
 .field label {
-  color: #8b949e;
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 600;
 }
 
 .field input {
   padding: 12px 14px;
-  background: #0d1117;
-  border: 1px solid #30363d;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 15px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .field input:focus {
   outline: none;
-  border-color: #00ff88;
-  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+  border-color: var(--accent-neon);
+  box-shadow: 0 0 8px var(--shadow-color);
 }
 
 .errorBox {
@@ -84,15 +85,15 @@
 
 .submitBtn {
   padding: 14px;
-  background: #00ff88;
-  color: #0d1117;
+  background: var(--accent-neon);
+  color: var(--bg-primary);
   border: none;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+  box-shadow: 0 0 12px var(--shadow-color);
 }
 
 .submitBtn:hover:not(:disabled) {
@@ -117,8 +118,17 @@
 }
 
 @keyframes shieldBounce {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
-  50% { transform: scale(1.2) rotate(8deg); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(8deg);
+    opacity: 1;
+  }
 }
 
 .hints {
@@ -135,10 +145,10 @@
 
 .hints code {
   display: block;
-  background: #0d1117;
+  background: var(--bg-primary);
   padding: 6px 10px;
   border-radius: 6px;
-  color: #58a6ff;
+  color: var(--accent-neon);
   font-size: 12px;
   margin-bottom: 4px;
 }
@@ -152,7 +162,7 @@
 }
 
 .registerLink a {
-  color: #00ff88;
+  color: var(--accent-neon);
   text-decoration: none;
   font-weight: 600;
 }
@@ -168,7 +178,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #0d1117;
+  background: var(--bg-primary);
   gap: 20px;
 }
 
@@ -186,11 +196,28 @@
 }
 
 @keyframes authPulse {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
-  50% { transform: scale(1.2) rotate(8deg); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(8deg);
+    opacity: 1;
+  }
 }
 
 @keyframes authTextPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; text-shadow: 0 0 12px rgba(0, 255, 136, 0.6); }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+  }
 }

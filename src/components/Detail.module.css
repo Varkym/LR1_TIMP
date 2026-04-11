@@ -21,20 +21,21 @@
 }
 
 .card {
-  background: #161b22;
-  border: 1px solid #30363d;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 36px 40px;
   width: 100%;
   max-width: 560px;
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.08);
+  box-shadow: 0 0 30px var(--shadow-color);
+  backdrop-filter: blur(10px);
 }
 
 .name {
   font-size: 28px;
   font-weight: 800;
-  color: #00ff88;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+  color: var(--accent-neon);
+  text-shadow: 0 0 10px var(--shadow-color);
   margin: 0 0 24px;
 }
 
@@ -46,7 +47,7 @@
 }
 
 .label {
-  color: #8b949e;
+  color: var(--text-secondary);
   font-size: 15px;
 }
 
@@ -73,7 +74,7 @@
 .progressWrap {
   width: 100%;
   height: 14px;
-  background: #21262d;
+  background: var(--bg-primary);
   border-radius: 7px;
   overflow: hidden;
   margin: 8px 0 28px;
@@ -93,28 +94,28 @@
 .togglePanelBtn {
   width: 100%;
   padding: 12px;
-  background: #0d1117;
-  color: #00ff88;
-  border: 1px solid #00ff88;
+  background: var(--bg-primary);
+  color: var(--accent-neon);
+  border: 1px solid var(--accent-neon);
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+  box-shadow: 0 0 8px var(--shadow-color);
 }
 
 .togglePanelBtn:hover:not(:disabled) {
-  background: #00ff88;
-  color: #0d1117;
-  box-shadow: 0 0 16px rgba(0, 255, 136, 0.4);
+  background: var(--accent-neon);
+  color: var(--bg-primary);
+  box-shadow: 0 0 16px var(--shadow-color);
 }
 
 .togglePanelBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  border-color: #30363d;
-  color: #8b949e;
+  border-color: var(--border-color);
+  color: var(--text-secondary);
 }
 
 .measuresList {
@@ -129,8 +130,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 16px;
-  background: #0d1117;
-  border: 1px solid #30363d;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   transition: border-color 0.2s;
 }
@@ -147,7 +148,7 @@
 }
 
 .measureLabel {
-  color: #e6edf3;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 700;
 }
@@ -166,8 +167,8 @@
 
 .measureBtn {
   padding: 8px 16px;
-  background: #00ff88;
-  color: #0d1117;
+  background: var(--accent-neon);
+  color: var(--bg-primary);
   border: none;
   border-radius: 8px;
   font-size: 13px;
@@ -199,8 +200,13 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .actions {
@@ -297,13 +303,30 @@
 }
 
 @keyframes shieldBounce {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
-  50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.15) rotate(5deg);
+    opacity: 1;
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; text-shadow: 0 0 12px rgba(0, 255, 136, 0.6); }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+  }
 }
 
 .error {

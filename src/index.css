@@ -1,3 +1,26 @@
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --text-primary: #ffffff;
+  --text-secondary: #8b949e;
+  --accent-neon: #00ff88;
+  --border-color: #30363d;
+  --shadow-color: rgba(0, 255, 136, 0.15);
+  --card-bg: rgba(22, 27, 34, 0.8);
+}
+
+[data-theme='light'] {
+  --bg-primary: #f6f8fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #24292f;
+  --text-secondary: #57606a;
+  --accent-neon: #0969da;
+  --border-color: #d0d7de;
+  --shadow-color: rgba(9, 105, 218, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.9);
+}
+
 *,
 *::before,
 *::after {
@@ -13,9 +36,10 @@ html {
 }
 
 body {
-  background: #0d1117;
-  color: #ffffff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
@@ -37,13 +61,16 @@ textarea {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #0d1117;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #30363d;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #484f58;
 }

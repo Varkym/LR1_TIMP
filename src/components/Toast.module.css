@@ -10,16 +10,23 @@
   border-radius: 10px;
   min-width: 280px;
   max-width: 400px;
-  box-shadow: 0 0 18px rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px var(--shadow-color);
   animation: slideIn 0.35s ease-out;
   font-size: 15px;
   font-weight: 500;
-  color: #0d1117;
+  color: var(--bg-primary);
 }
 
 @keyframes slideIn {
-  from { transform: translateX(120%); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .success {

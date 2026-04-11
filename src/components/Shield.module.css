@@ -9,8 +9,8 @@
 .title {
   font-size: 32px;
   font-weight: 800;
-  color: #00ff88;
-  text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+  color: var(--accent-neon);
+  text-shadow: 0 0 12px var(--shadow-color);
   margin: 10px 0 16px;
   text-align: center;
 }
@@ -31,18 +31,18 @@
 }
 
 .userName {
-  color: #e6edf3;
+  color: var(--text-primary);
   font-size: 15px;
   font-weight: 600;
 }
 
 .userRole {
-  color: #8b949e;
+  color: var(--text-secondary);
   font-size: 13px;
-  background: #161b22;
+  background: var(--bg-secondary);
   padding: 3px 10px;
   border-radius: 20px;
-  border: 1px solid #30363d;
+  border: 1px solid var(--border-color);
 }
 
 .topActions {
@@ -80,6 +80,25 @@
   color: #fff;
 }
 
+.themeToggle {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.themeToggle:hover {
+  border-color: var(--accent-neon);
+  box-shadow: 0 0 8px var(--shadow-color);
+}
+
 .shieldWrapper {
   position: relative;
   width: 1000px;
@@ -101,11 +120,25 @@
 }
 
 @keyframes shieldPulseAnim {
-  0% { filter: drop-shadow(0 0 0px rgba(0, 255, 136, 0)); }
-  25% { filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.8)); }
-  50% { filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.4)); }
-  75% { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6)); }
-  100% { filter: drop-shadow(0 0 0px rgba(0, 255, 136, 0)); }
+  0% {
+    filter: drop-shadow(0 0 0px rgba(0, 255, 136, 0));
+  }
+
+  25% {
+    filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.8));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.4));
+  }
+
+  75% {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 0px rgba(0, 255, 136, 0));
+  }
 }
 
 .guardImage {
@@ -114,8 +147,15 @@
 }
 
 @keyframes guardBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .sectorGroup {
@@ -147,30 +187,39 @@
 }
 
 @keyframes badgePulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.2); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
 }
 
 .addBtn {
   margin: 12px auto 0;
   padding: 14px 32px;
   background: transparent;
-  color: #00ff88;
-  border: 2px solid #00ff88;
+  color: var(--accent-neon);
+  border: 2px solid var(--accent-neon);
   border-radius: 10px;
   font-size: 16px;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.25s;
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+  box-shadow: 0 0 10px var(--shadow-color);
   display: block;
   text-align: center;
 }
 
 .addBtn:hover {
-  background: #00ff88;
-  color: #0d1117;
-  box-shadow: 0 0 24px rgba(0, 255, 136, 0.5);
+  background: var(--accent-neon);
+  color: var(--bg-primary);
+  box-shadow: 0 0 24px var(--shadow-color);
 }
 
 .loading,
@@ -199,13 +248,30 @@
 }
 
 @keyframes shieldBounce {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
-  50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.15) rotate(5deg);
+    opacity: 1;
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; text-shadow: 0 0 12px rgba(0, 255, 136, 0.6); }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+  }
 }
 
 .error {
