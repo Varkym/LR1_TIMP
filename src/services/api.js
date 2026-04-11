@@ -7,8 +7,26 @@ const api = axios.create({ baseURL: API_URL });
 
 // Хелперы для работы с единым объектом данных
 // Получаем первый элемент из коллекции 'api'
-const getFullData = () => api.get('/api').then(res => res.data[0]);
-const updateFullData = (data) => api.put(`/api/${data.id}`, data);
+const getFullData = () => api.get('/api').then(res => {
+    if (!res.data || res.data.length === 0) {
+        throw new Error('Данные в MockAPI не найдены');
+    }
+    const item = res.data[0];
+    // Если MockAPI почему-то не вернул id, пробуем использовать "1" как стандартный ID первого ресурса
+    if (!item.id) {
+        console.warn('Предупреждение: у объекта в MockAPI нет ID, используем "1" по умолчанию');
+        item.id = "1";
+    }
+    return item;
+});
+
+const updateFullData = (data) => {
+    const id = data.id || "1";
+    return api.put(`/api/${id}`, data).catch(err => {
+        console.error('Ошибка при обновлении данных на сервере:', err);
+        throw err;
+    });
+};
 
 // Services
 export const getServices = () => getFullData().then(data => ({ data: data.services }));
