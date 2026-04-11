@@ -11,8 +11,10 @@ const getFullData = () => api.get('/api').then(res => {
     if (!res.data || res.data.length === 0) {
         throw new Error('Данные в MockAPI не найдены');
     }
-    const item = res.data[0];
-    // Если MockAPI почему-то не вернул id, пробуем использовать "1" как стандартный ID первого ресурса
+    // Пытаемся найти объект с валидным ID "1" (который мы восстановили)
+    // Если его нет, ищем любой объект с ID, иначе берем первый в списке
+    const item = res.data.find(i => String(i.id) === "1") || res.data.find(i => i.id) || res.data[0];
+
     if (!item.id) {
         console.warn('Предупреждение: у объекта в MockAPI нет ID, используем "1" по умолчанию');
         item.id = "1";
