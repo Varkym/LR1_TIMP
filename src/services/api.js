@@ -1,94 +1,61 @@
 import axios from 'axios';
+import { USERS, EVENTS } from './mockData';
 
-// Используем базовый URL без /api в конце, чтобы обращаться к /api/1
-const API_URL = (import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42bb.mockapi.io/api').replace(/\/api$/, '');
+const API_URL = import.meta.env.VITE_API_URL || 'https://69d8ec0e0576c938825a42bb.mockapi.io/api';
 
 const api = axios.create({ baseURL: API_URL });
 
-// Хелперы для работы с единым объектом данных
-// Получаем первый элемент из коллекции 'api'
-const getFullData = () => api.get('/api').then(res => {
-    if (!res.data || res.data.length === 0) {
-        throw new Error('Данные в MockAPI не найдены');
-    }
-    // Пытаемся найти объект с валидным ID "1" (который мы восстановили)
-    // Если его нет, ищем любой объект с ID, иначе берем первый в списке
-    const item = res.data.find(i => String(i.id) === "1") || res.data.find(i => i.id) || res.data[0];
+// Services (Using standard REST on /api endpoint)
+export const getServices = () => api.get('').then(res => res);
+export const getService = (id) => api.get(`/${id}`).then(res => res);
+export const createService = (newData) => api.post('', newData).then(res => res);
+export const updateService = (id, updatedData) => api.put(`/${id}`, updatedData).then(res => res);
+export const deleteService = (id) => api.delete(`/${id}`).then(res => res);
 
-    if (!item.id) {
-        console.warn('Предупреждение: у объекта в MockAPI нет ID, используем "1" по умолчанию');
-        item.id = "1";
-    }
-    return item;
+// Users (Using local mock data to stay within free tier limits)
+export const getUsers = () => Promise.resolve({ data: USERS });
+export const findUserByEmail = (email) => Promise.resolve({
+    data: USERS.filter(u => u.email === email)
 });
-
-const updateFullData = (data) => {
-    const id = data.id || "1";
-    return api.put(`/api/${id}`, data).catch(err => {
-        console.error('Ошибка при обновлении данных на сервере:', err);
-        throw err;
-    });
+export const createUser = (userData) => {
+    const newUser = { ...userData, id: String(USERS.length + 1) };
+    USERS.push(newUser);
+    return Promise.resolve({ data: newUser });
+};
+export const updateUser = (id, userData) => {
+    const index = USERS.findIndex(u => String(u.id) === String(id));
+    if (index !== -1) {
+        USERS[index] = { ...USERS[index], ...userData };
+        return Promise.resolve({ data: USERS[index] });
+    }
+    return Promise.reject(new Error('User not found'));
 };
 
-// Services
-export const getServices = () => getFullData().then(data => ({ data: data.services }));
-export const getService = (id) => getFullData().then(data => ({ data: data.services.find(s => String(s.id) === String(id)) }));
-export const createService = async (newData) => {
-    const data = await getFullData();
-    // Находим максимальный существующий ID и прибавляем 1
-    const maxId = data.services.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
-    const newService = { ...newData, id: String(maxId + 1) };
-    data.services.push(newService);
-    return updateFullData(data);
+// Events (Using local mock data)
+export const getEvents = () => Promise.resolve({ data: EVENTS });
+export const getEvent = (id) => Promise.resolve({
+    data: EVENTS.find(e => String(e.id) === String(id))
+});
+export const createEvent = (eventData) => {
+    const newEvent = { ...eventData, id: String(EVENTS.length + 1) };
+    EVENTS.push(newEvent);
+    return Promise.resolve({ data: newEvent });
 };
-export const updateService = async (id, updatedData) => {
-    const data = await getFullData();
-    data.services = data.services.map(s => String(s.id) === String(id) ? { ...s, ...updatedData } : s);
-    return updateFullData(data);
+export const updateEvent = (id, eventData) => {
+    const index = EVENTS.findIndex(e => String(e.id) === String(id));
+    if (index !== -1) {
+        EVENTS[index] = { ...EVENTS[index], ...eventData };
+        return Promise.resolve({ data: EVENTS[index] });
+    }
+    return Promise.reject(new Error('Event not found'));
 };
-export const deleteService = async (id) => {
-    const data = await getFullData();
-    data.services = data.services.filter(s => String(s.id) !== String(id));
-    return updateFullData(data);
-};
-
-// Users
-export const getUsers = () => getFullData().then(data => ({ data: data.users }));
-export const findUserByEmail = (email) => getFullData().then(data => ({
-    data: data.users.filter(u => u.email === email)
-}));
-export const createUser = async (userData) => {
-    const data = await getFullData();
-    const maxId = data.users.reduce((max, u) => Math.max(max, parseInt(u.id) || 0), 0);
-    const newUser = { ...userData, id: String(maxId + 1) };
-    data.users.push(newUser);
-    return updateFullData(data);
-};
-export const updateUser = async (id, userData) => {
-    const data = await getFullData();
-    data.users = data.users.map(u => String(u.id) === String(id) ? { ...u, ...userData } : u);
-    return updateFullData(data);
-};
-
-// Events
-export const getEvents = () => getFullData().then(data => ({ data: data.events }));
-export const getEvent = (id) => getFullData().then(data => ({ data: data.events.find(e => String(e.id) === String(id)) }));
-export const createEvent = async (eventData) => {
-    const data = await getFullData();
-    const maxId = data.events.reduce((max, e) => Math.max(max, parseInt(e.id) || 0), 0);
-    const newEvent = { ...eventData, id: String(maxId + 1) };
-    data.events.push(newEvent);
-    return updateFullData(data);
-};
-export const updateEvent = async (id, eventData) => {
-    const data = await getFullData();
-    data.events = data.events.map(e => String(e.id) === String(id) ? { ...e, ...eventData } : e);
-    return updateFullData(data);
-};
-export const deleteEvent = async (id) => {
-    const data = await getFullData();
-    data.events = data.events.filter(e => String(e.id) !== String(id));
-    return updateFullData(data);
+export const deleteEvent = (id) => {
+    const index = EVENTS.findIndex(e => String(e.id) === String(id));
+    if (index !== -1) {
+        EVENTS.splice(index, 1);
+        return Promise.resolve({ data: { success: true } });
+    }
+    return Promise.reject(new Error('Event not found'));
 };
 
 export default api;
