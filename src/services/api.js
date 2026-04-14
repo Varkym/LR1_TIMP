@@ -35,7 +35,10 @@ export const getServices = () => getFullData().then(data => ({ data: data.servic
 export const getService = (id) => getFullData().then(data => ({ data: data.services.find(s => String(s.id) === String(id)) }));
 export const createService = async (newData) => {
     const data = await getFullData();
-    data.services.push(newData);
+    // Находим максимальный существующий ID и прибавляем 1
+    const maxId = data.services.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
+    const newService = { ...newData, id: String(maxId + 1) };
+    data.services.push(newService);
     return updateFullData(data);
 };
 export const updateService = async (id, updatedData) => {
@@ -56,7 +59,9 @@ export const findUserByEmail = (email) => getFullData().then(data => ({
 }));
 export const createUser = async (userData) => {
     const data = await getFullData();
-    data.users.push(userData);
+    const maxId = data.users.reduce((max, u) => Math.max(max, parseInt(u.id) || 0), 0);
+    const newUser = { ...userData, id: String(maxId + 1) };
+    data.users.push(newUser);
     return updateFullData(data);
 };
 export const updateUser = async (id, userData) => {
@@ -70,7 +75,9 @@ export const getEvents = () => getFullData().then(data => ({ data: data.events }
 export const getEvent = (id) => getFullData().then(data => ({ data: data.events.find(e => String(e.id) === String(id)) }));
 export const createEvent = async (eventData) => {
     const data = await getFullData();
-    data.events.push(eventData);
+    const maxId = data.events.reduce((max, e) => Math.max(max, parseInt(e.id) || 0), 0);
+    const newEvent = { ...eventData, id: String(maxId + 1) };
+    data.events.push(newEvent);
     return updateFullData(data);
 };
 export const updateEvent = async (id, eventData) => {
